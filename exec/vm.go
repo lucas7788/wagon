@@ -387,7 +387,6 @@ func (vm *VM) ExecCode(fnIndex int64, args ...uint64) (rtrn interface{}, err err
 		vm.ctx.locals[i] = arg
 	}
 
-	fmt.Println("vm ExecStep:", *vm.ExecMetrics.ExecStep)
 	res, err := vm.execCode(compiled)
 	if err != nil {
 		return nil, fmt.Errorf("exec:%v", err)
@@ -421,9 +420,12 @@ outer:
 		op := vm.ctx.code[vm.ctx.pc]
 		vm.ctx.pc++
 		if *vm.ExecMetrics.ExecStep > 6700000 && show {
-			fmt.Println("op:", op)
-			vm.showStack()
-			fmt.Println("LocalGasCounter:", vm.ExecMetrics.LocalGasCounter, "ExecStep:", *vm.ExecMetrics.ExecStep)
+			opCode, err := ops.New(op)
+			if err == nil {
+				fmt.Println("opCode:", opCode.Name)
+				vm.showStack()
+				fmt.Println("LocalGasCounter:", vm.ExecMetrics.LocalGasCounter, "ExecStep:", *vm.ExecMetrics.ExecStep)
+			}
 		}
 		switch op {
 		case ops.Return:
