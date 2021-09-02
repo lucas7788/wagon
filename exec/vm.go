@@ -7,6 +7,7 @@ package exec
 
 import (
 	"encoding/binary"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -49,6 +50,14 @@ type context struct {
 	code    []byte
 	pc      int64
 	curFunc int64
+}
+
+func (vm *VM) showStack() {
+	data, err := json.Marshal(vm.ctx)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("ctx:", string(data))
 }
 
 type Gas struct {
@@ -412,6 +421,8 @@ outer:
 	for int(vm.ctx.pc) < len(vm.ctx.code) && !vm.abort {
 		op := vm.ctx.code[vm.ctx.pc]
 		vm.ctx.pc++
+		fmt.Println("op:", op)
+		vm.showStack()
 		switch op {
 		case ops.Return:
 			break outer

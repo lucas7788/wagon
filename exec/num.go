@@ -6,7 +6,6 @@ package exec
 
 import (
 	"errors"
-	"fmt"
 	"math"
 	"math/bits"
 )
@@ -82,40 +81,18 @@ func (vm *VM) i32Shl() {
 	v2 := vm.popUint32()
 	v1 := vm.popUint32()
 	vm.pushUint32(v1 << (v2 % 32))
-	new := v1 << (v2 % 32)
-	old := v1 << v2
-	if new != old {
-		fmt.Println("************i32Shl new:", new, "old:", old)
-	} else {
-		fmt.Println("i32Shl new:", new, "old:", old)
-	}
 }
 
 func (vm *VM) i32ShrU() {
 	v2 := vm.popUint32()
 	v1 := vm.popUint32()
 	vm.pushUint32(v1 >> (v2 % 32))
-	new := v1 >> (v2 % 32)
-	old := v1 >> v2
-	if new != old {
-		fmt.Println("************i32ShrU new:", new, "old:", old)
-	} else {
-		fmt.Println("i32ShrU new:", new, "old:", old)
-	}
-
 }
 
 func (vm *VM) i32ShrS() {
 	v2 := vm.popUint32()
 	v1 := vm.popInt32()
 	vm.pushInt32(v1 >> (v2 % 32))
-	new := v1 >> (v2 % 32)
-	old := v1 >> v2
-	if new != old {
-		fmt.Println("***********i32ShrS new:", new, "old:", old)
-	} else {
-		fmt.Println("i32ShrS new:", new, "old:", old)
-	}
 }
 
 func (vm *VM) i32Rotl() {
@@ -261,41 +238,18 @@ func (vm *VM) i64Shl() {
 	v2 := vm.popUint64()
 	v1 := vm.popUint64()
 	vm.pushUint64(v1 << (v2 % 64))
-
-	new := v1 << (v2 % 64)
-	old := v1 << v2
-	if new != old {
-		fmt.Println("***********i64Shl new:", new, "old:", old)
-	} else {
-		fmt.Println("i64Shl new:", new, "old:", old)
-	}
 }
 
 func (vm *VM) i64ShrS() {
 	v2 := vm.popUint64()
 	v1 := vm.popInt64()
 	vm.pushInt64(v1 >> (v2 % 64))
-
-	new := v1 >> (v2 % 64)
-	old := v1 >> v2
-	if new != old {
-		fmt.Println("***********i64ShrS new:", new, "old:", old)
-	} else {
-		fmt.Println("i64ShrS new:", new, "old:", old)
-	}
 }
 
 func (vm *VM) i64ShrU() {
 	v2 := vm.popUint64()
 	v1 := vm.popUint64()
 	vm.pushUint64(v1 >> (v2 % 64))
-	new := v1 >> (v2 % 64)
-	old := v1 >> v2
-	if new != old {
-		fmt.Println("***********i64ShrU new:", new, "old:", old)
-	} else {
-		fmt.Println("i64ShrU new:", new, "old:", old)
-	}
 }
 
 func (vm *VM) i64Rotl() {
