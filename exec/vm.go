@@ -52,7 +52,7 @@ type context struct {
 }
 
 func (con context) showStack() {
-	fmt.Println("stack:", con.stack, "locals:", con.locals, "code:", con.code, "pc:", con.pc, "curFunc:", con.curFunc)
+	fmt.Println("stack:", con.stack, "locals:", con.locals, "pc:", con.pc, "curFunc:", con.curFunc)
 }
 
 func (vm *VM) showStack() {
