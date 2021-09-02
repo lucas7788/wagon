@@ -437,7 +437,6 @@ outer:
 		op := vm.ctx.code[vm.ctx.pc]
 		vm.ctx.pc++
 		if *vm.ExecMetrics.ExecStep > 6700000 && show {
-			fmt.Println("op:", op)
 			opCode, err := ops.New(op)
 			if err == nil {
 				fmt.Println("opCode:", opCode.Name)
