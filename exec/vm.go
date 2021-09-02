@@ -387,6 +387,7 @@ func (vm *VM) ExecCode(fnIndex int64, args ...uint64) (rtrn interface{}, err err
 		vm.ctx.locals[i] = arg
 	}
 
+	fmt.Println("vm ExecStep:", *vm.ExecMetrics.ExecStep)
 	res, err := vm.execCode(compiled)
 	if err != nil {
 		return nil, fmt.Errorf("exec:%v", err)
@@ -411,11 +412,15 @@ func (vm *VM) ExecCode(fnIndex int64, args ...uint64) (rtrn interface{}, err err
 }
 
 func (vm *VM) execCode(compiled compiledFunction) (uint64, error) {
+	show := false
+	if *vm.ExecMetrics.ExecStep == 8000000 {
+		show = true
+	}
 outer:
 	for int(vm.ctx.pc) < len(vm.ctx.code) && !vm.abort {
 		op := vm.ctx.code[vm.ctx.pc]
 		vm.ctx.pc++
-		if *vm.ExecMetrics.ExecStep > 6700000 {
+		if *vm.ExecMetrics.ExecStep > 6700000 && show {
 			fmt.Println("op:", op)
 			vm.showStack()
 			fmt.Println("LocalGasCounter:", vm.ExecMetrics.LocalGasCounter, "ExecStep:", *vm.ExecMetrics.ExecStep)
