@@ -59,6 +59,14 @@ type Gas struct {
 	ExecStep        *uint64
 }
 
+func (con context) showStack() {
+	fmt.Println("stack:", con.stack, "locals:", con.locals, "code:", con.code, "pc:", con.pc, "curFunc:", con.curFunc)
+}
+
+func (vm *VM) showStack() {
+	vm.ctx.showStack()
+}
+
 // VM is the execution context for executing WebAssembly bytecode.
 type VM struct {
 	ctx context
@@ -395,6 +403,8 @@ outer:
 	for int(vm.ctx.pc) < len(vm.ctx.code) && !vm.abort {
 		op := vm.ctx.code[vm.ctx.pc]
 		vm.ctx.pc++
+		fmt.Println("op:", op)
+		vm.showStack()
 		switch op {
 		case ops.Return:
 			break outer
