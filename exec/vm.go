@@ -415,7 +415,7 @@ outer:
 	for int(vm.ctx.pc) < len(vm.ctx.code) && !vm.abort {
 		op := vm.ctx.code[vm.ctx.pc]
 		vm.ctx.pc++
-		if *vm.ExecMetrics.ExecStep < 7000000 {
+		if *vm.ExecMetrics.ExecStep > 6700000 {
 			fmt.Println("op:", op)
 			vm.showStack()
 			fmt.Println("LocalGasCounter:", vm.ExecMetrics.LocalGasCounter, "ExecStep:", *vm.ExecMetrics.ExecStep)
