@@ -7,7 +7,6 @@ package exec
 
 import (
 	"encoding/binary"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -52,12 +51,12 @@ type context struct {
 	curFunc int64
 }
 
+func (con context) showStack() {
+	fmt.Println("stack:", con.stack, "locals:", con.locals, "code:", con.code, "pc:", con.pc, "curFunc:", con.curFunc)
+}
+
 func (vm *VM) showStack() {
-	data, err := json.Marshal(vm.ctx)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("ctx:", string(data))
+	vm.ctx.showStack()
 }
 
 type Gas struct {
