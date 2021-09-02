@@ -535,6 +535,10 @@ type Process struct {
 	vm *VM
 }
 
+func (this *Process) GetVm() *VM {
+	return this.vm
+}
+
 // NewProcess creates a VM interface object for host functions
 func NewProcess(vm *VM) *Process {
 	return &Process{vm: vm}
