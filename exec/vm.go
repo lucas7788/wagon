@@ -52,7 +52,19 @@ type context struct {
 }
 
 func (con context) showStack() {
-	fmt.Println("stack:", con.stack, "locals:", con.locals, "pc:", con.pc, "curFunc:", con.curFunc)
+	l := 0
+	if len(con.stack) < 10 {
+		l = 0
+	} else {
+		l = len(con.stack) - 10
+	}
+	l2 := 0
+	if len(con.locals) < 10 {
+		l2 = 0
+	} else {
+		l2 = len(con.locals) - 10
+	}
+	fmt.Println("stack:", con.stack[l:], "locals:", con.locals[l2:], "pc:", con.pc, "curFunc:", con.curFunc)
 }
 
 func (vm *VM) showStack() {
