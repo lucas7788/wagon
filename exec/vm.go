@@ -429,7 +429,7 @@ func (vm *VM) ExecCode(fnIndex int64, args ...uint64) (rtrn interface{}, err err
 
 func (vm *VM) execCode(compiled compiledFunction) (uint64, error) {
 	show := false
-	if *vm.ExecMetrics.ExecStep == 8000000 {
+	if *vm.ExecMetrics.ExecStep <= 8000000 {
 		show = true
 	}
 outer:
