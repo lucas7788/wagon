@@ -432,9 +432,10 @@ outer:
 	for int(vm.ctx.pc) < len(vm.ctx.code) && !vm.abort {
 		op := vm.ctx.code[vm.ctx.pc]
 		vm.ctx.pc++
-		if *vm.ExecMetrics.ExecStep > 6000000 {
+		if vm.ExecMetrics.LocalGasCounter > 6000000 {
 			fmt.Println("op:", op)
 			vm.showStack()
+			fmt.Println("LocalGasCounter:", vm.ExecMetrics.LocalGasCounter, "ExecStep:", *vm.ExecMetrics.ExecStep)
 		}
 		switch op {
 		case ops.Return:
