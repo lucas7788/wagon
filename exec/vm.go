@@ -438,9 +438,14 @@ outer:
 		vm.ctx.pc++
 		if *vm.ExecMetrics.ExecStep > 6700000 && show {
 			fmt.Println("op:", op)
-			vm.showStack()
-			fmt.Println("LocalGasCounter:", vm.ExecMetrics.LocalGasCounter, "ExecStep:", *vm.ExecMetrics.ExecStep)
+			opCode, err := ops.New(op)
+			if err == nil {
+				fmt.Println("opCode:", opCode.Name)
+				vm.showStack()
+				fmt.Println("LocalGasCounter:", vm.ExecMetrics.LocalGasCounter, "ExecStep:", *vm.ExecMetrics.ExecStep)
+			}
 		}
+
 		switch op {
 		case ops.Return:
 			break outer
